@@ -14,14 +14,18 @@ class ViewController: UIViewController {
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var changeColorBtn: UIButton!
     
+    let backgroundQueue = DispatchQueue.global(qos: .utility)
+    
     var isBlack: Bool = false {
         didSet {
             if isBlack {
                 self.view.backgroundColor = .black
                 self.label.textColor = .white
+                self.activityIndicator.color = .white
             } else {
                 self.view.backgroundColor = .white
                 self.label.textColor = .black
+                self.activityIndicator.color = .gray
             }
         }
     }
@@ -29,20 +33,25 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         label.text = ""
-        textField.isSecureTextEntry = true
+        textField.isSecureTextEntry = false
     }
 
     @IBAction func generatePasswordBtnDidPressed(_ sender: Any) {
-        let randomLength = Int.random(in: 2...4)
+        let randomLength = Int.random(in: 3...5)
         activityIndicator.startAnimating()
         textField.text = randomPassord(length: randomLength)
-        bruteForce(passwordToUnlock: textField.text ?? "", length: randomLength)
-        label.text = textField.text
-        activityIndicator.stopAnimating()
+        
+        backgroundQueue.async {
+            self.bruteForce(passwordToUnlock: self.textField.text ?? "", length: randomLength)
+            DispatchQueue.main.async {
+                self.label.text = self.textField.text
+                self.activityIndicator.stopAnimating()
+            }
+        }
     }
     
     @IBAction func changeColorBtnDidPressed(_ sender: Any) {
-        isBlack.toggle()
+            isBlack.toggle()
     }
     
     func randomPassord(length: Int) -> String {
