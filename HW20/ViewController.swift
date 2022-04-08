@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var changeColorBtn: UIButton!
     
-    let backgroundQueue = DispatchQueue.global(qos: .utility)
+    let backgroundQueue = DispatchQueue(label: "bruteForce", qos: .utility)
     
     var isBlack: Bool = false {
         didSet {
@@ -33,19 +33,25 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         label.text = ""
-        textField.isSecureTextEntry = false
     }
 
     @IBAction func generatePasswordBtnDidPressed(_ sender: Any) {
         let randomLength = Int.random(in: 3...5)
+        textField.isSecureTextEntry = true
         activityIndicator.startAnimating()
         textField.text = randomPassord(length: randomLength)
+        generatePasswordBtn.isEnabled = false
+        label.text = ""
+        let textToGuess = textField.text ?? ""
         
         backgroundQueue.async {
-            self.bruteForce(passwordToUnlock: self.textField.text ?? "", length: randomLength)
+            self.bruteForce(passwordToUnlock: textToGuess, length: randomLength)
+            
             DispatchQueue.main.async {
                 self.label.text = self.textField.text
                 self.activityIndicator.stopAnimating()
+                self.textField.isSecureTextEntry = false
+                self.generatePasswordBtn.isEnabled = true
             }
         }
     }
