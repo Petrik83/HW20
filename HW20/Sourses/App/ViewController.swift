@@ -12,10 +12,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var label: UILabel!
     
-    let bruteForce = BruteForce()
 
-    let backgroundQueue = DispatchQueue(label: "bruteForce", qos: .utility)
-    
+    let backgroundQueue = OperationQueue()
+    var bruteForce = BruteForce(passwordToUnlock: "")
     var isBlack: Bool = false {
         didSet {
             if isBlack {
@@ -35,24 +34,22 @@ class ViewController: UIViewController {
     }
 
     @IBAction func generatePasswordButtonDidPressed(_ sender: Any) {
-        let randomLength = Int.random(in: 3...3)
+        let randomLength = Int.random(in: 3...5)
 //        textField.isSecureTextEntry = true
         activityIndicator.startAnimating()
         textField.text = randomPassord(length: randomLength)
-//        generatePasswordButton.isEnabled = false
         label.text = ""
         let textToGuess = textField.text ?? ""
         
-        backgroundQueue.async {
-            self.bruteForce.bruteForce(passwordToUnlock: textToGuess)
-            
-            DispatchQueue.main.async {
-                self.label.text = self.textField.text
-                self.activityIndicator.stopAnimating()
-                self.textField.isSecureTextEntry = false
-//                self.generatePasswordButton.isEnabled = true
-            }
-        }
+        if bruteForce.isExecuting {
+            bruteForce.cancel()
+        } 
+        bruteForce = BruteForce(passwordToUnlock: textToGuess)
+
+        backgroundQueue.addOperation(bruteForce)
+        label.text = "dsf"
+
+
     }
     
     @IBAction func changeColorButtonDidPressed(_ sender: Any) {
@@ -64,7 +61,4 @@ class ViewController: UIViewController {
       return String((0..<length).map{ _ in letters.randomElement()! })
     }
 }
-
-
-
 
