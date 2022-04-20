@@ -9,10 +9,10 @@ import UIKit
 
 class ViewController: UIViewController {
     @IBOutlet weak var textField: UITextField!
-    @IBOutlet weak var generatePasswordBtn: UIButton!
+    @IBOutlet weak var generatePasswordButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var label: UILabel!
-    @IBOutlet weak var changeColorBtn: UIButton!
+    @IBOutlet weak var changeColorButton: UIButton!
     
     let bruteForce = BruteForce()
 
@@ -36,12 +36,12 @@ class ViewController: UIViewController {
         super.viewDidLoad()
     }
 
-    @IBAction func generatePasswordBtnDidPressed(_ sender: Any) {
+    @IBAction func generatePasswordButtonDidPressed(_ sender: Any) {
         let randomLength = Int.random(in: 3...3)
 //        textField.isSecureTextEntry = true
         activityIndicator.startAnimating()
         textField.text = randomPassord(length: randomLength)
-        generatePasswordBtn.isEnabled = false
+        generatePasswordButton.isEnabled = false
         label.text = ""
         let textToGuess = textField.text ?? ""
         
@@ -52,12 +52,12 @@ class ViewController: UIViewController {
                 self.label.text = self.textField.text
                 self.activityIndicator.stopAnimating()
                 self.textField.isSecureTextEntry = false
-                self.generatePasswordBtn.isEnabled = true
+                self.generatePasswordButton.isEnabled = true
             }
         }
     }
     
-    @IBAction func changeColorBtnDidPressed(_ sender: Any) {
+    @IBAction func changeColorButtonDidPressed(_ sender: Any) {
             isBlack.toggle()
     }
     
