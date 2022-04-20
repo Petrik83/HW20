@@ -21,7 +21,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="ChangeColor"/>
                                 <connections>
-                                    <action selector="changeColorBtnDidPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sRw-Ea-XrN"/>
+                                    <action selector="changeColorButtonDidPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pu8-92-yZe"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OE7-HG-HR2">
@@ -46,7 +46,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="GeneratePassword"/>
                                 <connections>
-                                    <action selector="generatePasswordBtnDidPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FoW-TC-zgx"/>
+                                    <action selector="generatePasswordButtonDidPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="blL-yp-M7o"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -68,8 +68,6 @@
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="KqV-P2-maa" id="SN8-SD-6vB"/>
-                        <outlet property="changeColorBtn" destination="40j-Os-Ghz" id="7Ld-fm-OkO"/>
-                        <outlet property="generatePasswordBtn" destination="1oG-Vl-BN1" id="rVP-4a-NyY"/>
                         <outlet property="label" destination="8lH-xl-fhn" id="30u-IC-mix"/>
                         <outlet property="textField" destination="OE7-HG-HR2" id="gsk-R4-AHi"/>
                     </connections>
