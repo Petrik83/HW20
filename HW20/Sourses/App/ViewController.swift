@@ -40,13 +40,14 @@ class ViewController: UIViewController {
         if bruteForce.isExecuting {
             backgroundQueue.cancelAllOperations()
         }
+        
         let randomLength = Int.random(in: 3...4)
         let textToGuess = randomPassord(length: randomLength)
+        
         startBruteForceSetupView(text: textToGuess)
         bruteForce = BruteForce(passwordToUnlock: textToGuess)
 
         backgroundQueue.addOperation(bruteForce)
-
         backgroundQueue.addOperation {
             self.mainQueue.addOperation {
                 self.finishBruteForceSetupView(text: textToGuess)

@@ -59,7 +59,6 @@ class BruteForce: Operation {
         }
         return str
     }
-    
 }
 
 
