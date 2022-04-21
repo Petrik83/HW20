@@ -12,17 +12,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var label: UILabel!
     
-
     let backgroundQueue = OperationQueue()
     let mainQueue = OperationQueue.main
     var bruteForce = BruteForce(passwordToUnlock: "")
     
-    var labeltext: String = "" {
-    
-        willSet {
-            self.label.text = newValue
-        }
-    }
     var isBlack: Bool = false {
         didSet {
             if isBlack {
@@ -39,32 +32,24 @@ class ViewController: UIViewController {
         
     override func viewDidLoad() {
         super.viewDidLoad()
-        backgroundQueue.maxConcurrentOperationCount = 1
-        textField.isSecureTextEntry = true
-
+        setupView()
+        setupQueue()
     }
 
     @IBAction func generatePasswordButtonDidPressed(_ sender: Any) {
         if bruteForce.isExecuting {
             backgroundQueue.cancelAllOperations()
-            
         }
-        
-        let randomLength = Int.random(in: 3...3)
-        textField.isSecureTextEntry = true
-        label.text = ""
+        let randomLength = Int.random(in: 3...4)
         let textToGuess = randomPassord(length: randomLength)
-        activityIndicator.startAnimating()
-        textField.text = textToGuess
+        startBruteForceSetupView(text: textToGuess)
         bruteForce = BruteForce(passwordToUnlock: textToGuess)
 
         backgroundQueue.addOperation(bruteForce)
 
         backgroundQueue.addOperation {
             self.mainQueue.addOperation {
-                self.label.text = textToGuess
-                self.activityIndicator.stopAnimating()
-                self.textField.isSecureTextEntry = false
+                self.finishBruteForceSetupView(text: textToGuess)
             }
         }
     }
@@ -76,6 +61,27 @@ class ViewController: UIViewController {
     func randomPassord(length: Int) -> String {
       let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
       return String((0..<length).map{ _ in letters.randomElement()! })
+    }
+    
+    func setupView() {
+        textField.isSecureTextEntry = true
+    }
+    
+    func setupQueue() {
+        backgroundQueue.maxConcurrentOperationCount = 1
+    }
+    
+    func startBruteForceSetupView(text: String) {
+        textField.isSecureTextEntry = true
+        label.text = ""
+        activityIndicator.startAnimating()
+        textField.text = text
+    }
+    
+    func finishBruteForceSetupView(text: String) {
+        textField.isSecureTextEntry = false
+        label.text = text
+        activityIndicator.stopAnimating()
     }
 }
 

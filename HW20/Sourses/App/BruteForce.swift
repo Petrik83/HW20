@@ -16,12 +16,11 @@ class BruteForce: Operation {
     }
     
     override func main() {
-        bruteForce(passwordToUnlock: passwordToUnlock)        
+        bruteForce(passwordToUnlock: passwordToUnlock)
     }
     
     func bruteForce(passwordToUnlock: String) {
         let ALLOWED_CHARACTERS:   [String] = String().printable.map { String($0) }
-        
         var password: String = ""
         
         while password != passwordToUnlock {
@@ -32,7 +31,6 @@ class BruteForce: Operation {
                 return
             }
         }
-        
         print(password)
     }
     
@@ -59,7 +57,6 @@ class BruteForce: Operation {
                 str = String(generateBruteForce(String(str.dropLast()), fromArray: array)) + String(str.last!)
             }
         }
-        
         return str
     }
     
