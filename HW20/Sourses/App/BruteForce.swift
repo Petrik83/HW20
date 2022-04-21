@@ -16,7 +16,7 @@ class BruteForce: Operation {
     }
     
     override func main() {
-        bruteForce(passwordToUnlock: passwordToUnlock)
+        bruteForce(passwordToUnlock: passwordToUnlock)        
     }
     
     func bruteForce(passwordToUnlock: String) {

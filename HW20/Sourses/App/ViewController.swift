@@ -14,7 +14,15 @@ class ViewController: UIViewController {
     
 
     let backgroundQueue = OperationQueue()
+    let mainQueue = OperationQueue.main
     var bruteForce = BruteForce(passwordToUnlock: "")
+    
+    var labeltext: String = "" {
+    
+        willSet {
+            self.label.text = newValue
+        }
+    }
     var isBlack: Bool = false {
         didSet {
             if isBlack {
@@ -31,25 +39,34 @@ class ViewController: UIViewController {
         
     override func viewDidLoad() {
         super.viewDidLoad()
+        backgroundQueue.maxConcurrentOperationCount = 1
+        textField.isSecureTextEntry = true
+
     }
 
     @IBAction func generatePasswordButtonDidPressed(_ sender: Any) {
-        let randomLength = Int.random(in: 3...5)
-//        textField.isSecureTextEntry = true
-        activityIndicator.startAnimating()
-        textField.text = randomPassord(length: randomLength)
-        label.text = ""
-        let textToGuess = textField.text ?? ""
-        
         if bruteForce.isExecuting {
-            bruteForce.cancel()
-        } 
+            backgroundQueue.cancelAllOperations()
+            
+        }
+        
+        let randomLength = Int.random(in: 3...3)
+        textField.isSecureTextEntry = true
+        label.text = ""
+        let textToGuess = randomPassord(length: randomLength)
+        activityIndicator.startAnimating()
+        textField.text = textToGuess
         bruteForce = BruteForce(passwordToUnlock: textToGuess)
 
         backgroundQueue.addOperation(bruteForce)
-        label.text = "dsf"
 
-
+        backgroundQueue.addOperation {
+            self.mainQueue.addOperation {
+                self.label.text = textToGuess
+                self.activityIndicator.stopAnimating()
+                self.textField.isSecureTextEntry = false
+            }
+        }
     }
     
     @IBAction func changeColorButtonDidPressed(_ sender: Any) {
