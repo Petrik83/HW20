@@ -28,20 +28,23 @@ class BruteForce {
     }
     
     func generateBruteForce(_ string: String, fromArray array: [String]) -> String {
-        var str: String = string
-        
-        if str.count <= 0 {
-            str.append(characterAt(index: 0, array))
+        var string: String = string
+        if string.count <= 0 {
+            string.append(characterAt(index: 0, array))
         }
         else {
-            str.replace(at: str.count - 1,
-                        with: characterAt(index: (indexOf(character: str.last!, array) + 1) % array.count, array))
+            guard string.last != nil else { return "" }
+
+            string.replace(at: string.count - 1,
+                        with: characterAt(index: (indexOf(character: string.last!, array) + 1) % array.count, array))
             
-            if indexOf(character: str.last!, array) == 0 {
-                str = String(generateBruteForce(String(str.dropLast()), fromArray: array)) + String(str.last!)
+            if indexOf(character: string.last!, array) == 0 {
+                guard string.last != nil else { return "" }
+
+                string = String(generateBruteForce(String(string.dropLast()), fromArray: array)) + String(string.last!)
             }
         }
-        return str
+        return string
     }
 }
 
