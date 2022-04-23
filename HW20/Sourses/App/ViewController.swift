@@ -11,10 +11,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var generatePasswordButton: UIButton!
     
     let backgroundQueue = OperationQueue()
+    let bruteForceQueue = OperationQueue()
     let mainQueue = OperationQueue.main
-    var bruteForce = BruteForce(passwordToUnlock: "")
+    
+    var bruteForce = BruteForce()
     
     var isBlack: Bool = false {
         didSet {
@@ -29,34 +32,45 @@ class ViewController: UIViewController {
             }
         }
     }
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        setupQueue()
     }
-
+    
     @IBAction func generatePasswordButtonDidPressed(_ sender: Any) {
-        if bruteForce.isExecuting {
-            backgroundQueue.cancelAllOperations()
+        
+        let randomLength = Int.random(in: 3...15)
+        let textToGuess = randomPassord(length: randomLength)
+        let separatedTextToGuessArray = textToGuess.components(withLength: 4)
+        
+        let startBruteForceSetupViewOperation = BlockOperation {
+            self.mainQueue.addOperation {
+                self.startBruteForceSetupView(text: textToGuess)
+            }
         }
         
-        let randomLength = Int.random(in: 3...4)
-        let textToGuess = randomPassord(length: randomLength)
+        let BruteForceOperation = BlockOperation {
+            for text in separatedTextToGuessArray {
+                self.backgroundQueue.addOperation {
+                    self.bruteForce.bruteForce(passwordToUnlock: text)
+                }
+            }
+            self.backgroundQueue.waitUntilAllOperationsAreFinished()
+        }
         
-        startBruteForceSetupView(text: textToGuess)
-        bruteForce = BruteForce(passwordToUnlock: textToGuess)
-
-        backgroundQueue.addOperation(bruteForce)
-        backgroundQueue.addOperation {
+        BruteForceOperation.completionBlock = {
             self.mainQueue.addOperation {
                 self.finishBruteForceSetupView(text: textToGuess)
             }
         }
+        
+        bruteForceQueue.addOperation(startBruteForceSetupViewOperation)
+        bruteForceQueue.addOperation(BruteForceOperation)
     }
     
     @IBAction func changeColorButtonDidPressed(_ sender: Any) {
-            isBlack.toggle()
+        isBlack.toggle()
     }
     
     func randomPassord(length: Int) -> String {
@@ -68,21 +82,19 @@ class ViewController: UIViewController {
         textField.isSecureTextEntry = true
     }
     
-    func setupQueue() {
-        backgroundQueue.maxConcurrentOperationCount = 1
-    }
-    
     func startBruteForceSetupView(text: String) {
         textField.isSecureTextEntry = true
         label.text = ""
         activityIndicator.startAnimating()
         textField.text = text
+        generatePasswordButton.isEnabled = false
     }
     
     func finishBruteForceSetupView(text: String) {
         textField.isSecureTextEntry = false
         label.text = text
         activityIndicator.stopAnimating()
+        generatePasswordButton.isEnabled = true
     }
 }
 

@@ -68,6 +68,7 @@
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="KqV-P2-maa" id="SN8-SD-6vB"/>
+                        <outlet property="generatePasswordButton" destination="1oG-Vl-BN1" id="7vj-aU-Hf0"/>
                         <outlet property="label" destination="8lH-xl-fhn" id="30u-IC-mix"/>
                         <outlet property="textField" destination="OE7-HG-HR2" id="gsk-R4-AHi"/>
                     </connections>
