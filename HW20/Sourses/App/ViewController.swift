@@ -42,7 +42,7 @@ class ViewController: UIViewController {
         
         let randomLength = Int.random(in: 3...15)
         let textToGuess = randomPassord(length: randomLength)
-        let separatedTextToGuessArray = textToGuess.components(withLength: 4)
+        let separatedTextToGuessArray = textToGuess.components(withLength: 3)
         
         let startBruteForceSetupViewOperation = BlockOperation {
             self.mainQueue.addOperation {
@@ -75,7 +75,7 @@ class ViewController: UIViewController {
     
     func randomPassord(length: Int) -> String {
       let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-      return String((0..<length).map{ _ in letters.randomElement()! })
+      return String((0..<length).compactMap{ _ in letters.randomElement() })
     }
     
     func setupView() {
