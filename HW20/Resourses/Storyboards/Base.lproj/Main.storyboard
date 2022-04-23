@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="HW20" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="40j-Os-Ghz">
+                                <rect key="frame" x="152.5" y="509" width="109" height="31"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="ChangeColor"/>
+                                <connections>
+                                    <action selector="changeColorButtonDidPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pu8-92-yZe"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OE7-HG-HR2">
+                                <rect key="frame" x="50" y="343" width="314" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8lH-xl-fhn">
+                                <rect key="frame" x="207" y="473" width="0.0" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="ZyD-D0-UTS"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="KqV-P2-maa">
+                                <rect key="frame" x="197" y="438" width="20" height="20"/>
+                            </activityIndicatorView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1oG-Vl-BN1">
+                                <rect key="frame" x="134" y="392" width="146" height="31"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="GeneratePassword"/>
+                                <connections>
+                                    <action selector="generatePasswordButtonDidPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="blL-yp-M7o"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="OE7-HG-HR2" firstAttribute="centerX" secondItem="40j-Os-Ghz" secondAttribute="centerX" id="1PU-tO-Iph"/>
+                            <constraint firstItem="40j-Os-Ghz" firstAttribute="top" secondItem="8lH-xl-fhn" secondAttribute="bottom" constant="15" id="AkS-vY-S8u"/>
+                            <constraint firstItem="1oG-Vl-BN1" firstAttribute="centerX" secondItem="KqV-P2-maa" secondAttribute="centerX" id="Ldb-jq-QUF"/>
+                            <constraint firstItem="KqV-P2-maa" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="RBc-3R-yBX"/>
+                            <constraint firstItem="KqV-P2-maa" firstAttribute="top" secondItem="1oG-Vl-BN1" secondAttribute="bottom" constant="15" id="brn-X0-B8U"/>
+                            <constraint firstItem="8lH-xl-fhn" firstAttribute="top" secondItem="KqV-P2-maa" secondAttribute="bottom" constant="15" id="eEI-KF-wyM"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="OE7-HG-HR2" secondAttribute="trailing" constant="50" id="evW-VZ-Lcn"/>
+                            <constraint firstItem="KqV-P2-maa" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="ngf-y0-4oR"/>
+                            <constraint firstItem="1oG-Vl-BN1" firstAttribute="centerX" secondItem="8lH-xl-fhn" secondAttribute="centerX" id="pB3-Ti-EkM"/>
+                            <constraint firstItem="1oG-Vl-BN1" firstAttribute="top" secondItem="OE7-HG-HR2" secondAttribute="bottom" constant="15" id="wCB-o5-Won"/>
+                            <constraint firstItem="OE7-HG-HR2" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="wa7-Vv-sL8"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="activityIndicator" destination="KqV-P2-maa" id="SN8-SD-6vB"/>
+                        <outlet property="generatePasswordButton" destination="1oG-Vl-BN1" id="7vj-aU-Hf0"/>
+                        <outlet property="label" destination="8lH-xl-fhn" id="30u-IC-mix"/>
+                        <outlet property="textField" destination="OE7-HG-HR2" id="gsk-R4-AHi"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="122" y="124"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
